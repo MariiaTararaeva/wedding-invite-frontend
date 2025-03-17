@@ -1,0 +1,20 @@
+// hooks/useGuestId.ts
+import { useEffect } from "react";
+
+export const useGuestId = () => {
+  const key = "guestId";
+
+  // Initialize if not present
+  useEffect(() => {
+    if (!localStorage.getItem(key)) {
+      const uuid = crypto.randomUUID();
+      localStorage.setItem(key, uuid);
+    }
+  }, []);
+
+  const get = () => localStorage.getItem(key);
+  const clear = () => localStorage.removeItem(key);
+
+  return { guestId: get(), clearGuestId: clear };
+};
+//REMEMBER TO CLEAR STORAGE after use guestID and user logged in 

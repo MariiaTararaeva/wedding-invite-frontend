@@ -32,4 +32,43 @@ function App() {
   )
 }
 
+//add this for guestID to be sent to the server to save their invite starting front thw strt of the app server so that if theu signup or log in - we show thir invite
+// useEffect(() => {
+//   if (!localStorage.getItem("guestId")) {
+//     localStorage.setItem("guestId", crypto.randomUUID());
+//   }
+// }, []);
+
+
+// Example: When user signs up (frontend):
+//fetch("/api/auth/signup", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({
+//     email,
+//     password,
+//     guestId: localStorage.getItem("guestId")
+//   })
+// });
+
+
+// Example: When sending the invitation request:
+// const guestId = localStorage.getItem("guestId");
+
+// fetch("/api/invitations", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+//   body: JSON.stringify({
+//     template: "...",
+//     names: "...",
+//     weddingDate: "...",
+//     venue: "...",
+//     rsvpLink: "...",
+//     isPaid: false,
+//     guestId // ← include this in every POST as a guest
+//   })
+// });
+
 export default App
