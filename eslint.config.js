@@ -1,28 +1,44 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import { defineConfig } from "eslint-define-config";
 
-export default tseslint.config(
-  { ignores: ['dist'] },
-  {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+export default defineConfig({
+  root: true,
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  parser: "vue-eslint-parser",
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: "latest",
+    sourceType: "module",
+  },
+
+  extends: [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  plugins: ["vue", "@typescript-eslint"],
+  rules: {
+    "vue/multi-word-component-names": "off", // optional, allow single-word components
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/no-explicit-any": "off", // you can enable this later if you want
+  },
+  overrides: [
+    {
+      files: ["*.vue"],
+      rules: {
+        "@typescript-eslint/no-unused-vars": "off",
+      },
     },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+  ],
+  settings: {
+    prettier: {
+      semi: false,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: "es5",
     },
   },
-)
+});
